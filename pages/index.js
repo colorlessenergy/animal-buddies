@@ -59,7 +59,7 @@ export default function Home () {
 
                 <div>
                     { posts ? (posts.map(post => {
-                        const isLiked = post.liked.includes(authUser.uid);
+                        const isLiked = authUser ? (post.liked.includes(authUser.uid)) : false;
 
                         return (
                             <div
@@ -76,7 +76,7 @@ export default function Home () {
                                     </div>
 
                                     <button
-                                        onClick={ () => handleLikeOrUnLikePost({ postID: post.id, isLiked })}
+                                        onClick={ authUser ? () => handleLikeOrUnLikePost({ postID: post.id, isLiked }) : toggleAuthModal }
                                         className={ `post-like` }>
                                         <span className="mr-1">
                                             { post.liked.length }
