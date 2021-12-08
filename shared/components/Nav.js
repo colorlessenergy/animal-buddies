@@ -4,7 +4,7 @@ const Nav = ({ toggleAuthModal }) => {
     const { authUser, signOutUser } = useAuth();
 
     return (
-        <nav>
+        <nav className="nav">
             <div>
                 animal buddies
             </div>

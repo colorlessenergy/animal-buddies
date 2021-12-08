@@ -1,0 +1,9 @@
+@use 'variables.scss' as *;
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: $space-1;
+}
