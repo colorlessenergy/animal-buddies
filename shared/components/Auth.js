@@ -16,20 +16,24 @@ const Auth = ({ toggleAuthModal }) => {
     }
 
     const { signInUser, signUpUser } = useAuth();
+    const [ submitError, setSubmitError ] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
+        setSubmitError('');
 
         if (isSignInView) {
             signInUser(userData)
                 .then(() => toggleAuthModal())
-                .catch(error => {
-                    console.log(error.message)
-                });
+                .catch(() => setSubmitError('That email and password combination is incorrect.'));
         } else {
             signUpUser(userData)
                 .then(() => toggleAuthModal())
                 .catch(error => {
-                    console.log(error.message)
+                    if (error.code === 'auth/weak-password') {
+                        setSubmitError('Password should be at least 6 characters.');
+                    } else if (error.code === 'auth/email-already-in-use') {
+                        setSubmitError('Email is already in use.');
+                    }
                 });
         }
     }
@@ -42,22 +46,30 @@ const Auth = ({ toggleAuthModal }) => {
     return (
         <div>
             <form onSubmit={ handleSubmit }>
-                <label>email</label>
+                <label htmlFor="email">email</label>
                 <input
                     type="email"
                     id="email"
                     onChange={ handleInputChange }
-                    value={ userData.email } />
+                    value={ userData.email }
+                    required />
 
-                <label>password</label>
+                <label htmlFor="password">password</label>
                 <input
                     type="password"
                     id="password"
                     onChange={ handleInputChange }
-                    value={ userData.password } />
+                    value={ userData.password }
+                    required />
                 <button>
                     { isSignInView ? ("Log in") : ("create account") }
                 </button>
+
+                { submitError ? (
+                    <p>
+                       { submitError }
+                    </p> 
+                ) : (null) }
             </form>
 
             <button onClick={ toggleSignInView }>
