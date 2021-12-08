@@ -4,8 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    margin: $space-1;
+    margin: $space-1 0;
 }
 
 .auth-form-group {
@@ -43,4 +42,23 @@
     width: 100%;
 
     background-color: #ffffff;
+}
+
+.container {
+    margin: 0 $space-1;
+}
+
+.post {
+    width: 45%;
+}
+
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $space-1;
+}
+
+.post-like {
+    display: flex;
+    align-items: center;
 }
