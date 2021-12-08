@@ -49,6 +49,7 @@ const Auth = ({ toggleAuthModal }) => {
 
     const [ isSignInView, setIsSignInView ] = useState(true);
     const toggleSignInView = () => {
+        setSubmitError('');
         setIsSignInView(previousIsSignInView => !previousIsSignInView);
     }
 
