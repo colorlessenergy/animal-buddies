@@ -48,8 +48,14 @@
     margin: 0 $space-1;
 }
 
+.posts-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .post {
-    width: 45%;
+    width: 100%;
 }
 
 .post-item {

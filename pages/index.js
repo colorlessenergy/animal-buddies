@@ -57,14 +57,14 @@ export default function Home () {
             <div className="container">
                 <Nav toggleAuthModal={ toggleAuthModal } />
 
-                <div>
+                <div className="posts-container">
                     { posts ? (posts.map(post => {
                         const isLiked = authUser ? (post.liked.includes(authUser.uid)) : false;
 
                         return (
                             <div
-                                className="post"
-                                key={ post.id }>
+                                key={ post.id }
+                                className="post mb-1">
                                 <img
                                     className="w-100"
                                     src={ post.image }
