@@ -15,18 +15,18 @@ const Auth = ({ toggleAuthModal }) => {
         }));
     }
 
-    const { signInUser, createUser } = useAuth();
+    const { signInUser, signUpUser } = useAuth();
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (isLogInView) {
+        if (isSignInView) {
             signInUser(userData)
                 .then(() => toggleAuthModal())
                 .catch(error => {
                     console.log(error.message)
                 });
         } else {
-            createUser(userData)
+            signUpUser(userData)
                 .then(() => toggleAuthModal())
                 .catch(error => {
                     console.log(error.message)
@@ -34,9 +34,9 @@ const Auth = ({ toggleAuthModal }) => {
         }
     }
 
-    const [ isLogInView, setIsLogInView ] = useState(true);
-    const toggleLogInView = () => {
-        setIsLogInView(previousIsLogInView => !previousIsLogInView);
+    const [ isSignInView, setIsSignInView ] = useState(true);
+    const toggleSignInView = () => {
+        setIsSignInView(previousIsSignInView => !previousIsSignInView);
     }
 
     return (
@@ -56,12 +56,12 @@ const Auth = ({ toggleAuthModal }) => {
                     onChange={ handleInputChange }
                     value={ userData.password } />
                 <button>
-                    { isLogInView ? ("Log in") : ("Register") }
+                    { isSignInView ? ("Log in") : ("create account") }
                 </button>
             </form>
 
-            <button onClick={ toggleLogInView }>
-                { isLogInView ? ("Create an account") : ("already have an account? Log in") }
+            <button onClick={ toggleSignInView }>
+                { isSignInView ? ("Create an account") : ("already have an account? sign in") }
             </button>
         </div>
     );

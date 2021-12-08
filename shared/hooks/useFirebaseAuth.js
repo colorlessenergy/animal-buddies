@@ -21,7 +21,7 @@ const useFirebaseAuth = () => {
         });
     }, []);
 
-    const createUser = ({ email, password }) => {
+    const signUpUser = ({ email, password }) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
@@ -39,7 +39,7 @@ const useFirebaseAuth = () => {
     return {
         authUser,
         loading,
-        createUser,
+        signUpUser,
         signInUser,
         signOutUser
     }

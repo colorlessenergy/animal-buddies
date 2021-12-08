@@ -5,8 +5,8 @@ import useFirebaseAuth from '../hooks/useFirebaseAuth';
 const authUserContext = createContext({
     authUser: null,
     loading: true,
-    signInWithEmailAndPassword: () => {},
-    createUserWithEmailAndPassword: () => {},
+    signInUser: () => {},
+    signUpUser: () => {},
     signOut: () => {}
 });
 
