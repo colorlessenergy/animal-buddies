@@ -55,34 +55,43 @@ const Auth = ({ toggleAuthModal }) => {
     return (
         <div>
             <form onSubmit={ handleSubmit }>
-                <label htmlFor="email">email</label>
-                <input
-                    type="email"
-                    id="email"
-                    onChange={ handleInputChange }
-                    value={ userData.email }
-                    required />
+                <div className="auth-form-group">
+                    <label htmlFor="email">email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        className="mb-1"
+                        onChange={ handleInputChange }
+                        value={ userData.email }
+                        required />
+                </div>
 
-                <label htmlFor="password">password</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={ handleInputChange }
-                    value={ userData.password }
-                    required />
-                <button>
+                <div className="auth-form-group">
+                    <label htmlFor="password">password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="mb-1"
+                        onChange={ handleInputChange }
+                        value={ userData.password }
+                        required />
+                </div>
+
+                <button className={ `auth-button ${ isSignInView ? ("auth-button--sign-in") : ("auth-button--sign-up") } mb-1` }>
                     { isSignInView ? ("Log in") : ("create account") }
                 </button>
 
                 { submitError ? (
-                    <p>
+                    <p className="color-red-1">
                        { submitError }
                     </p> 
                 ) : (null) }
             </form>
 
-            <button onClick={ toggleSignInView }>
-                { isSignInView ? ("Create an account") : ("already have an account? sign in") }
+            <button
+                className="color-dark-blue-1 text-decoration-underline"
+                onClick={ toggleSignInView }>
+                { isSignInView ? ("Create an account") : ("sign in") }
             </button>
         </div>
     );

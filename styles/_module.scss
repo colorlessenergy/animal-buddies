@@ -7,3 +7,23 @@
 
     margin: $space-1;
 }
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-button {
+    border-radius: 5px;
+    padding: 8px;
+    width: 100%;
+}
+
+.auth-button--sign-in {
+    background-color: $black-1;
+    color: #ffffff;
+}
+
+.auth-button--sign-up {
+    border: 2px solid #000;
+}

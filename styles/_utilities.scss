@@ -1,0 +1,17 @@
+@use 'variables.scss' as *;
+
+.mb-1 {
+    margin-bottom: $space-1;
+}
+
+.color-red-1 {
+    color: $dark-red-1;
+}
+
+.color-dark-blue-1 {
+    color: $dark-blue-1;
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
