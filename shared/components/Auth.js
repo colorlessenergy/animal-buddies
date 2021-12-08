@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
+
 import { useAuth } from '../contexts/AuthUserContext';
 
 const Auth = ({ toggleAuthModal }) => {
@@ -26,8 +28,15 @@ const Auth = ({ toggleAuthModal }) => {
                 .then(() => toggleAuthModal())
                 .catch(() => setSubmitError('That email and password combination is incorrect.'));
         } else {
+            const db = getFirestore();
             signUpUser(userData)
-                .then(() => toggleAuthModal())
+                .then(userCredential => {
+                    setDoc(doc(db, 'users', userCredential.user.uid), {
+                        liked: []
+                    });
+
+                    toggleAuthModal();
+                })
                 .catch(error => {
                     if (error.code === 'auth/weak-password') {
                         setSubmitError('Password should be at least 6 characters.');
