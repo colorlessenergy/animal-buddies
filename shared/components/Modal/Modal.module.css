@@ -17,12 +17,12 @@
     flex-direction: column;
     margin: 0 10px;
     padding: 10px;
+    position: relative;
     max-height: 90%;
     min-height: 250px;
     width: 100%;
 
     background-color: #ffffff;
-    overflow-y: scroll;
 }
 
 .flex {

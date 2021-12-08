@@ -27,3 +27,20 @@
 .auth-button--sign-up {
     border: 2px solid #000;
 }
+
+.modal-close-button {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: -20px;
+    right: -12px;
+}
+
+.modal-close-button__icon {
+    border: 2px solid #000000;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+
+    background-color: #ffffff;
+}
