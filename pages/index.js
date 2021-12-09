@@ -26,13 +26,13 @@ export default function Home () {
                     id: document.id
                 });
             });
-            setPosts(postsFromFirestore);
+
+            sortPostsByOptions(postsFromFirestore);
         });
     }, []);
 
     const { authUser } = useAuth();
     const handleLikeOrUnLikePost = ({ postID, isLiked }) => {
-        console.log(isLiked)
         if (isLiked) {
             const postRef = doc(db, 'posts', postID);
             updateDoc(postRef, {
@@ -46,6 +46,61 @@ export default function Home () {
         }
     }
 
+    const [ sortOptions, setSortOptions ] = useState({
+        liked: false,
+        new: true
+    });
+
+    useEffect(() => {
+        sortPostsByOptions(posts);
+    }, [ sortOptions.liked, sortOptions.new ]);
+
+    const sortPostsByOptions = (posts) => {
+        if (posts.length === 0) return;
+        const clonePosts = JSON.parse(JSON.stringify(posts));
+
+        clonePosts.sort(sortPostsByNew);
+        clonePosts.sort(sortPostsByLike);
+
+        setPosts(clonePosts);
+    }
+
+    const sortPostsByLike = (postOne, postTwo) => {
+        if (sortOptions.liked) {
+            if (postOne.liked.includes(authUser.uid) && postTwo.liked.includes(authUser.uid)) {
+                return sortPostsByNew(postOne, postTwo);
+            } else if (postOne.liked.includes(authUser.uid) && !postTwo.liked.includes(authUser.uid)) {
+                return -1;
+            } else  {
+                return 1;
+            }
+        } else if (!sortOptions.liked) {
+            if (postOne.liked.includes(authUser.uid) && postTwo.liked.includes(authUser.uid)) {
+                console.log(sortPostsByNew(postOne, postTwo))
+                return sortPostsByNew(postOne, postTwo);
+            } else if (postOne.liked.includes(authUser.uid) && !postTwo.liked.includes(authUser.uid)) {
+                return 1;
+            } else  {
+                return -1;
+            }
+        }
+    }
+
+    const sortPostsByNew = (postOne, postTwo) => {
+        if (sortOptions.new) {
+            return postOne.createdAt.seconds - postTwo.createdAt.seconds;
+        } else if (!sortOptions.new) {
+            return postTwo.createdAt.seconds - postOne.createdAt.seconds;
+        }
+    }
+
+    const toggleSortOptions = (sortType) => {
+        setSortOptions(previousSortOptions => ({
+            ...previousSortOptions,
+            [ sortType ]: !previousSortOptions[ sortType ]
+        }));
+    }
+
     return (
         <div>
             <Head>
@@ -56,6 +111,12 @@ export default function Home () {
 
             <div className="container">
                 <Nav toggleAuthModal={ toggleAuthModal } />
+
+                <div className="mb-1">
+                    <span className="mr-1">sort by</span> 
+                    <button className={`mr-1 ${ sortOptions.liked ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('liked') }>liked</button> 
+                    <button className={`${ sortOptions.new ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('new') }>new</button>
+                </div>
 
                 <div className="posts-container">
                     { posts ? (posts.map(post => {

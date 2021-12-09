@@ -73,3 +73,12 @@
     fill: $dark-red-2;
     stroke: #000000;
 }
+
+.post-filter-active {
+    border-radius: 10px;
+    padding: 4px 15px;
+
+    background-color: $dark-red-2;
+    color: #ffffff;
+    font-weight: 700;
+}
