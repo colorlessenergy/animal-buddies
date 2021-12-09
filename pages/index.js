@@ -76,7 +76,6 @@ export default function Home () {
             }
         } else if (!sortOptions.liked) {
             if (postOne.liked.includes(authUser.uid) && postTwo.liked.includes(authUser.uid)) {
-                console.log(sortPostsByNew(postOne, postTwo))
                 return sortPostsByNew(postOne, postTwo);
             } else if (postOne.liked.includes(authUser.uid) && !postTwo.liked.includes(authUser.uid)) {
                 return 1;
@@ -101,6 +100,24 @@ export default function Home () {
         }));
     }
 
+    const [ searchValue, setSearchValue ] = useState('');
+    const handleInputChange = (event) => {
+        setSearchValue(event.target.value);
+    }
+    const filterPostBySearch = (post) => {
+        if (post.title.includes(searchValue)) {
+            return true;
+        }
+
+        for(let i = 0; i < post.tags.length; i++) {
+            if (post.tags[ i ].includes(searchValue)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     return (
         <div>
             <Head>
@@ -112,6 +129,19 @@ export default function Home () {
             <div className="container">
                 <Nav toggleAuthModal={ toggleAuthModal } />
 
+                <div className="text-center">
+                    <label
+                        htmlFor="filter-posts"
+                        className="d-none">filter posts</label>
+                    <input
+                        type="text"
+                        id="filter-posts"
+                        onChange={ handleInputChange }
+                        value={ searchValue }
+                        placeholder="bear..."
+                        className="mb-1" />
+                </div>
+
                 <div className="mb-1">
                     <span className="mr-1">sort by</span> 
                     <button className={`mr-1 ${ sortOptions.liked ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('liked') }>liked</button> 
@@ -119,7 +149,7 @@ export default function Home () {
                 </div>
 
                 <div className="posts-container">
-                    { posts ? (posts.map(post => {
+                    { posts && posts.filter(filterPostBySearch).length ? (posts.filter(filterPostBySearch).map(post => {
                         const isLiked = authUser ? (post.liked.includes(authUser.uid)) : false;
 
                         return (
@@ -175,7 +205,18 @@ export default function Home () {
                             </div>
                             )
                         })
-                    ) : (null) }
+                    ) : (searchValue ? (
+                            <div className="m0-auto">
+                                <p className="text-2 font-weight-700">
+                                    nothing was found
+                                </p>
+
+                                <p>
+                                    have you tried bear 🤔
+                                </p>
+                            </div>
+                        ) : (null) 
+                    ) }
                 </div>
             </div>
 

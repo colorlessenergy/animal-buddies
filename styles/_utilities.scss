@@ -1,5 +1,9 @@
 @use 'variables.scss' as *;
 
+.m0-auto {
+    margin: 0 auto;
+}
+
 .mr-1 {
     margin-right: $space-1;
 }
@@ -22,6 +26,18 @@
 
 .text-right {
     text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-2 {
+    font-size: 30px;
+}
+
+.font-weight-700 {
+    font-weight: 700;
 }
 
 .w-100 {
