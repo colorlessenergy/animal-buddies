@@ -25,6 +25,11 @@
     background-color: #ffffff;
 }
 
+:global(.dark) .modal-content {
+    background-color: #333333;
+    color: #ffffff;
+}
+
 @media (min-width: 600px) {
     .modal-content {
         width: 80%;

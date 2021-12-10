@@ -183,10 +183,8 @@ export default function Home () {
                                         </span>
                                         { isLiked ? (
                                         <svg
-                                            className="post-heart"
+                                            className="post-heart heart-icon"
                                             xmlns="http://www.w3.org/2000/svg"
-                                            fill="#ffffff"
-                                            stroke="#ffffff"
                                             width="16"
                                             height="16"
                                             viewBox="0 0 16 16">
@@ -194,6 +192,7 @@ export default function Home () {
                                         </svg>
                                     ) : (
                                         <svg
+                                            className="heart-icon"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="16"
                                             height="16"
