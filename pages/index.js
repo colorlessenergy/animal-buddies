@@ -60,7 +60,10 @@ export default function Home () {
         const clonePosts = JSON.parse(JSON.stringify(posts));
 
         clonePosts.sort(sortPostsByLiked);
-        clonePosts.sort(sortPostsByHeart);
+
+        if (authUser) {
+            clonePosts.sort(sortPostsByHeart);
+        }
 
         setPosts(clonePosts);
     }
@@ -149,7 +152,9 @@ export default function Home () {
                 <div className="mb-1">
                     <span className="mr-1">sort by</span> 
                     <button className={`mr-1 ${ sortOptions.liked ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('liked') }>liked</button> 
-                    <button className={`${ sortOptions.heart ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('heart') }>heart</button>
+                    { authUser ? (
+                        <button className={`${ sortOptions.heart ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('heart') }>heart</button>
+                    ) : (null) }
                 </div>
 
                 <div className="posts-container">
