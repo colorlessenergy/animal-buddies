@@ -47,36 +47,36 @@ export default function Home () {
     }
 
     const [ sortOptions, setSortOptions ] = useState({
-        liked: false,
-        new: true
+        liked: true,
+        heart: false
     });
 
     useEffect(() => {
         sortPostsByOptions(posts);
-    }, [ sortOptions.liked, sortOptions.new ]);
+    }, [ sortOptions.liked, sortOptions.heart ]);
 
     const sortPostsByOptions = (posts) => {
         if (posts.length === 0) return;
         const clonePosts = JSON.parse(JSON.stringify(posts));
 
-        clonePosts.sort(sortPostsByNew);
-        clonePosts.sort(sortPostsByLike);
+        clonePosts.sort(sortPostsByLiked);
+        clonePosts.sort(sortPostsByHeart);
 
         setPosts(clonePosts);
     }
 
-    const sortPostsByLike = (postOne, postTwo) => {
-        if (sortOptions.liked) {
+    const sortPostsByHeart = (postOne, postTwo) => {
+        if (sortOptions.heart) {
             if (postOne.liked.includes(authUser.uid) && postTwo.liked.includes(authUser.uid)) {
-                return sortPostsByNew(postOne, postTwo);
+                return 0;
             } else if (postOne.liked.includes(authUser.uid) && !postTwo.liked.includes(authUser.uid)) {
                 return -1;
             } else  {
                 return 1;
             }
-        } else if (!sortOptions.liked) {
+        } else {
             if (postOne.liked.includes(authUser.uid) && postTwo.liked.includes(authUser.uid)) {
-                return sortPostsByNew(postOne, postTwo);
+                return 0;
             } else if (postOne.liked.includes(authUser.uid) && !postTwo.liked.includes(authUser.uid)) {
                 return 1;
             } else  {
@@ -85,11 +85,15 @@ export default function Home () {
         }
     }
 
-    const sortPostsByNew = (postOne, postTwo) => {
-        if (sortOptions.new) {
-            return postOne.createdAt.seconds - postTwo.createdAt.seconds;
-        } else if (!sortOptions.new) {
+    const sortPostsByLiked = (postOne, postTwo) => {
+        if (postOne.liked.length === postTwo.liked.length) {
             return postTwo.createdAt.seconds - postOne.createdAt.seconds;
+        }
+
+        if (sortOptions.liked) {
+            return postTwo.liked.length - postOne.liked.length;
+        } else {
+            return postOne.liked.length - postTwo.liked.length;
         }
     }
 
@@ -145,7 +149,7 @@ export default function Home () {
                 <div className="mb-1">
                     <span className="mr-1">sort by</span> 
                     <button className={`mr-1 ${ sortOptions.liked ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('liked') }>liked</button> 
-                    <button className={`${ sortOptions.new ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('new') }>new</button>
+                    <button className={`${ sortOptions.heart ? ("post-filter-active") : ("") }`} onClick={ () => toggleSortOptions('heart') }>heart</button>
                 </div>
 
                 <div className="posts-container">
