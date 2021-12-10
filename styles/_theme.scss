@@ -1,0 +1,27 @@
+@use 'variables.scss' as *;
+
+body.dark {
+    background-color: $black-1;
+    color: #ffffff;
+}
+
+.dark .color-dark-blue-1 {
+    color: $light-blue-1;
+}
+
+.dark .color-dark-red-1 {
+    color: $light-red-1;
+}
+
+.dark .heart-icon {
+    stroke: #ffffff;
+}
+
+.dark .auth-button--sign-in {
+    background-color: $orange-1;
+    color: #000000;
+}
+
+.dark .auth-button--sign-up {
+    border: 2px solid $orange-1;
+}

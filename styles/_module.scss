@@ -4,8 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    margin: $space-1;
+    margin: $space-1 0;
 }
 
 .auth-form-group {
@@ -43,4 +42,58 @@
     width: 100%;
 
     background-color: #ffffff;
+}
+
+.container {
+    margin: 0 $space-1;
+}
+
+.posts-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.post {
+    width: 100%;
+}
+
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $space-1;
+}
+
+.post-like {
+    display: flex;
+    align-items: center;
+}
+
+.post-heart {
+    fill: $dark-red-2;
+    stroke: #000000;
+}
+
+.post-filter-active {
+    border-radius: 10px;
+    padding: 4px 15px;
+
+    background-color: $dark-red-2;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.theme-selector {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+
+    background-color: #ffffff;
+}
+
+body.modal-is-open {
+    overflow: hidden;
 }

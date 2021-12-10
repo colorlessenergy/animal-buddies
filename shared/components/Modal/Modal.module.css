@@ -25,12 +25,9 @@
     background-color: #ffffff;
 }
 
-.flex {
-    display: flex;
-}
-
-.d-none {
-    display: none;
+:global(.dark) .modal-content {
+    background-color: #333333;
+    color: #ffffff;
 }
 
 @media (min-width: 600px) {
