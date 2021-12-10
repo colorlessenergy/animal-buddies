@@ -53,7 +53,7 @@ export default function Home () {
 
     useEffect(() => {
         sortPostsByOptions(posts);
-    }, [ sortOptions.liked, sortOptions.heart ]);
+    }, [ sortOptions.liked, sortOptions.heart, authUser ]);
 
     const sortPostsByOptions = (posts) => {
         if (posts.length === 0) return;
