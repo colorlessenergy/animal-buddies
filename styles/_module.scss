@@ -93,3 +93,7 @@
 
     background-color: #ffffff;
 }
+
+body.modal-is-open {
+    overflow: hidden;
+}
