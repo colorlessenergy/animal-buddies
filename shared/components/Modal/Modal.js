@@ -26,7 +26,7 @@ const Modal = ({ isOpen, toggleModal, children }) => {
        <div
         ref={ modalRef }
         onClick={ toggleModal === undefined ? (null) : (handleCloseModal) }
-        className={`${ classes["modal"] } ${ isOpen ? classes["flex"] : "d-none" }`}>
+        className={`${ classes["modal"] } ${ isOpen ? "flex" : "d-none" }`}>
            <div className={classes["modal-content"]}>
                { children }
             </div>

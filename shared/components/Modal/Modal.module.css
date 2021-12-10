@@ -25,10 +25,6 @@
     background-color: #ffffff;
 }
 
-.flex {
-    display: flex;
-}
-
 @media (min-width: 600px) {
     .modal-content {
         width: 80%;
