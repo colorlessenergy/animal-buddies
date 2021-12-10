@@ -102,7 +102,7 @@ const Auth = ({ toggleAuthModal }) => {
                 </button>
 
                 { submitError ? (
-                    <p className="color-red-1">
+                    <p className="color-dark-red-1">
                        { submitError }
                     </p> 
                 ) : (null) }
