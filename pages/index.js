@@ -36,7 +36,7 @@ export default function Home () {
         if (postsFromFirestore.length === 0) return;
 
         if (posts.length === 0) {
-            sortPostsByOptions(postsFromFirestore)
+            sortPostsByOptions(postsFromFirestore);
         } else {
             let clonePosts = JSON.parse(JSON.stringify(posts));
             postsFromFirestore.forEach(postFromFirestore => {
