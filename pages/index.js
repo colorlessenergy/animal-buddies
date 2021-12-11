@@ -128,12 +128,12 @@ export default function Home () {
         setSearchValue(event.target.value);
     }
     const filterPostBySearch = (post) => {
-        if (post.title.includes(searchValue)) {
+        if (post.title.includes(searchValue.toLowerCase().trim())) {
             return true;
         }
 
         for(let i = 0; i < post.tags.length; i++) {
-            if (post.tags[ i ].includes(searchValue)) {
+            if (post.tags[ i ].includes(searchValue.toLowerCase().trim())) {
                 return true;
             }
         }
