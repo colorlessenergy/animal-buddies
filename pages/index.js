@@ -16,9 +16,10 @@ export default function Home () {
     }
 
     const [ posts, setPosts ] = useState([]);
+    const [ postsFromFirestore, setPostsFromFirestore ] = useState([]);
     const db = getFirestore();
     useEffect(() => {
-        onSnapshot(collection(db, "posts"), (querySnapshot) => {
+        onSnapshot(collection(db, 'posts'), (querySnapshot) => {
             let postsFromFirestore = [];
             querySnapshot.forEach(document => {
                 postsFromFirestore.push({
@@ -27,9 +28,24 @@ export default function Home () {
                 });
             });
 
-            sortPostsByOptions(postsFromFirestore);
+            setPostsFromFirestore(postsFromFirestore);
         });
     }, []);
+
+    useEffect(() => {
+        if (postsFromFirestore.length === 0) return;
+
+        if (posts.length === 0) {
+            sortPostsByOptions(postsFromFirestore);
+        } else {
+            let clonePosts = JSON.parse(JSON.stringify(posts));
+            postsFromFirestore.forEach(postFromFirestore => {
+                const clonePostIndex = clonePosts.findIndex(clonePost => clonePost.id === postFromFirestore.id);
+                clonePosts[ clonePostIndex ] = postFromFirestore;
+            });
+            setPosts(clonePosts);
+        }
+    }, [ postsFromFirestore ]);
 
     const { authUser } = useAuth();
     const handleLikeOrUnLikePost = ({ postID, isLiked }) => {
@@ -112,12 +128,12 @@ export default function Home () {
         setSearchValue(event.target.value);
     }
     const filterPostBySearch = (post) => {
-        if (post.title.includes(searchValue)) {
+        if (post.title.includes(searchValue.toLowerCase().trim())) {
             return true;
         }
 
         for(let i = 0; i < post.tags.length; i++) {
-            if (post.tags[ i ].includes(searchValue)) {
+            if (post.tags[ i ].includes(searchValue.toLowerCase().trim())) {
                 return true;
             }
         }
