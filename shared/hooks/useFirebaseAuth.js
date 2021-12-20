@@ -10,8 +10,12 @@ const useFirebaseAuth = () => {
     const auth = getAuth();
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            if (!user) return setLoading(false);
-
+            if (!user) {
+                setAuthUser(null);
+                setLoading(false);
+                return;
+            }
+            
             setAuthUser({
                 uid: user.uid,
                 email: user.email
