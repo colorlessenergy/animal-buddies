@@ -9,6 +9,10 @@ body {
     font-size: 18px;
 }
 
+body {
+    transition: background-color 0.5s ease;
+}
+
 p {
     margin: $space-1 0;
 }
