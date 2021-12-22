@@ -25,4 +25,5 @@ A website to view, like and sort posts about animals 😀
 
 ### ☀️ themes 🌙
 
-light and dark mode
+* auto detects and applies preferred theme
+* light and dark theme
